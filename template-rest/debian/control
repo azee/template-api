@@ -1,0 +1,15 @@
+Source: template-api
+Section: misc
+Priority: extra
+Maintainer: Aziz Namazov <azeedrums@gmail.com>
+Build-Depends: cdbs, debhelper (>= 7.0.50~)
+
+Package: template-api
+Architecture: all
+Depends: ${misc:Depends}
+Description: template-api
+
+Package: template-api-config
+Architecture: all
+Description: template-api-config
+ 

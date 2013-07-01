@@ -1,0 +1,25 @@
+# template-api
+
+description "template-api"
+
+start on runlevel [2345]
+stop on runlevel [06]
+
+pre-start script
+    # check exist log dir
+    if [ ! -d /var/log/template ]; then
+        mkdir /var/log/template
+        chown -R template:adm /var/log/template
+        exit 0
+    fi
+end script
+
+script
+
+    JAVA_ARGS="-Xmx512m"
+
+    sudo -u template java $JAVA_ARGS -cp "/usr/share/template/template-api/lib/*" com.mycompany.template.Main /usr/share/template/template-api/ > /var/log/template/api.log 2>&1
+
+end script
+
+

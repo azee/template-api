@@ -1,0 +1,2 @@
+lib/ /usr/share/template/template-api/
+template-api /etc/nginx/conf.d

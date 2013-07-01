@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+
+# Add here any variable or target overrides you need.
+PACKAGE := $(DEB_SOURCE_PACKAGE)
+
+DEB_DH_INSTALLINIT_ARGS := --no-start
+
+JAVA_HOME := $(shell update-alternatives --query javac | grep Best: | cut -d " " -f2 | sed 's|/bin/javac||')
+
+build:
+	export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128m"
+	mvn -Dmaven.repo.local=${HOME}/.m2/repository clean package
+	mv target/template-rest.jar lib/template-rest.jar
+
+
+clean::
+	mvn -Dmaven.repo.local=${HOME}/.m2/repository clean

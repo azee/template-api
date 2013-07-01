@@ -1,0 +1,2 @@
+conf/template-api.properties.* etc/template/api
+conf/template-api-hazelcast.properties.* etc/template/api

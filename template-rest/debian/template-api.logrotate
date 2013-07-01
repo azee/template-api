@@ -1,0 +1,24 @@
+/var/log/template/api.log{
+        daily
+        missingok
+        rotate 7
+        compress
+        delaycompress
+        create 644 aqua adm
+        sharedscripts
+        copytruncate
+}
+
+/var/log/nginx/template-api.error.log /var/log/nginx/template-api.access.log{
+        daily
+        missingok
+        rotate 12
+        compress
+        delaycompress
+        notifempty
+        create 644 www-data adm
+        sharedscripts
+        postrotate
+                [ -f /var/run/nginx.pid ] && kill -USR1 `cat /var/run/nginx.pid`
+        endscript
+}
