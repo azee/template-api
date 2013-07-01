@@ -6,10 +6,10 @@
                     http://www.springframework.org/schema/security
                     http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-    <global-method-security secured-annotations="enabled"   pre-post-annotations="enabled"/>
+    <!--<global-method-security secured-annotations="enabled"   pre-post-annotations="enabled"/>
 
 	<http auto-config="false" use-expressions="true" create-session="ifRequired" >
         <intercept-url pattern="/template-api/some-bean/all" access="hasAnyRole('ROLE_ADMIN')" />
-	</http>
+	</http>-->
 
 </beans:beans>

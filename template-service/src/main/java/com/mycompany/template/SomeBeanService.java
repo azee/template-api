@@ -4,6 +4,7 @@ import com.mycompany.template.beans.SomeBean;
 import com.mycompany.template.repositories.PropertyRepository;
 import com.mycompany.template.repositories.SomeBeanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * Date: 7/1/13
  * Time: 6:01 PM
   */
+@Service
 public class SomeBeanService {
 
     @Autowired
