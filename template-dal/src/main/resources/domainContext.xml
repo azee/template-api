@@ -14,7 +14,6 @@
         <property name="localOverride" value="true"/>
         <property name="locations">
             <list>
-                <value>classpath:jpa.properties</value>
                 <value>file:///${project.parent.basedir}/template-rest/conf/template-api-local.properties</value>
                 <value>file:///etc/template/api/template-api.properties</value>
                 <value>file:///etc/template/api/template-api-hazelcast.properties</value>
@@ -45,10 +44,5 @@
     </bean>
 
     <mongo:repositories base-package="com.mycompany.template.repositories" repository-impl-postfix="CustomImpl"/>
-
-    <bean id="myEmf" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="jpaReporter"/>
-        <property name="jpaPropertyMap" ref="jpaProps"/>
-    </bean>
 
 </beans>

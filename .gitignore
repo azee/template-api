@@ -1,6 +1,15 @@
 *.class
+*.md
+*.iml
+*.pub
+*/target/*
+.idea
+*.ipr
+*.iws
+build
 
 # Package Files #
 *.jar
 *.war
 *.ear
+
