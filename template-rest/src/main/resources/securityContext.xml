@@ -8,8 +8,10 @@
 
     <!--<global-method-security secured-annotations="enabled"   pre-post-annotations="enabled"/>
 
-	<http auto-config="false" use-expressions="true" create-session="ifRequired" >
+	<http auto-config="true" use-expressions="true" create-session="ifRequired" >
         <intercept-url pattern="/template-api/some-bean/all" access="hasAnyRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/**" access="permitAll" />
+        <form-login />
 	</http>-->
 
 </beans:beans>
