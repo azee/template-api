@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="urn:beans.template.mycompany.com"
+           targetNamespace="urn:beans.template.mycompany.com"
+           elementFormDefault="qualified"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           jaxb:version="2.1">
+
+    <xs:element name="baseSomeBean" type="BaseSomeBean"/>
+    <xs:complexType name="BaseSomeBean">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="time" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="someBean" type="SomeBean"/>
+    <xs:complexType name="SomeBean">
+        <xs:complexContent>
+            <xs:extension base="BaseSomeBean">
+                <xs:sequence>
+                    <xs:element name="property" type="Property" minOccurs="0"
+                                maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="property" type="Property"/>
+    <xs:complexType name="Property">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="key" type="xs:string"/>
+            <xs:element name="value" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+</xs:schema>

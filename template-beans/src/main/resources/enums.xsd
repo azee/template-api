@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="urn:beans.template.mycompany.com"
+           targetNamespace="urn:beans.template.mycompany.com"
+           elementFormDefault="qualified">
+
+    <xs:element name="exampleEnum" type="ExampleEnum"/>
+    <xs:simpleType name="ExampleEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="value1"/>
+            <xs:enumeration value="value2"/>
+            <xs:enumeration value="value3"/>
+            <xs:enumeration value="value4"/>
+            <xs:enumeration value="value5"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

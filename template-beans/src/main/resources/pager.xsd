@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="urn:beans.template.mycompany.com"
+           targetNamespace="urn:beans.template.mycompany.com"
+           elementFormDefault="qualified"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           jaxb:version="2.1">
+
+    <xs:element name="pagerItem" type="PagerItem" />
+    <xs:complexType name="PagerItem">
+       <xs:sequence>
+           <xs:element name="title" type="xs:string"/>
+           <xs:element name="args" type="xs:string"/>
+           <xs:element name="pageNumber" type="xs:int"/>
+           <xs:element name="enabled" type="xs:boolean"/>
+           <xs:element name="active" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="pager" type="Pager" />
+    <xs:complexType name="Pager">
+       <xs:sequence>
+           <xs:element name="pages" type="PagerItem" minOccurs="0" maxOccurs="unbounded"/>
+           <xs:element name="count" type="xs:long"/>
+           <xs:element name="step" type="xs:int"/>
+           <xs:element name="startWith" type="xs:int"/>
+           <xs:element name="objectsOnCurrPage" type="xs:int"/>
+           <xs:element name="pagesWindow" type="xs:int" />
+           <xs:element name="numberOfPages" type="xs:int"/>
+           <xs:element name="centralPage" type="xs:int" />
+        </xs:sequence>
+   </xs:complexType>
+
+</xs:schema>
+
+
