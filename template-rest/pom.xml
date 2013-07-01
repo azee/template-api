@@ -412,7 +412,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <mainClass>ru.yandex.aqua.Main</mainClass>
+                            <mainClass>com.mycompany.template.Main</mainClass>
                         </configuration>
                     </plugin>
 
