@@ -1,0 +1,11 @@
+location /template-api {
+    access_log /var/log/nginx/template-api.access.log custom buffer=32k;
+    error_log /var/log/nginx/template-api.error.log info;
+    proxy_pass              http://localhost:9001;
+    proxy_redirect          off;
+    proxy_connect_timeout   60s;
+    add_header Access-Control-Allow-Methods "GET,PUT,OPTIONS,POST,DELETE";
+    add_header Access-Control-Allow-Origin "*";
+    add_header Access-Control-Allow-Headers "Content-Type";
+    add_header Access-Control-Max-Age "86400";
+}
