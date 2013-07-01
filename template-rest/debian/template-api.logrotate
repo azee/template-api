@@ -4,7 +4,7 @@
         rotate 7
         compress
         delaycompress
-        create 644 aqua adm
+        create 644 template adm
         sharedscripts
         copytruncate
 }

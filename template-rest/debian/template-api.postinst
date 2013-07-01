@@ -1,5 +1,5 @@
 #!/bin/sh
-# postinst script for aqua-selenium-grid-hub
+# postinst script for template-api
 #
 # see: dh_installdeb(1)
 
