@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/data/mongo
+            http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+
+    <bean id="apiProps" class="com.mycompany.template.utils.TemplatePropertiesPlaceholderConfigurer" >
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="localOverride" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:jpa.properties</value>
+                <value>file:///${project.parent.basedir}/template-rest/conf/template-api-local.properties</value>
+                <value>file:///etc/template/api/template-api.properties</value>
+                <value>file:///etc/template/api/template-api-hazelcast.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean class="com.mycompany.template.beans.ConfigUtils">
+        <property name="authEnabled" value="${auth.enabled}" />
+    </bean>
+
+    <util:properties id="domain" location="classpath:domain.properties"/>
+
+    <mongo:mongo id="mongo" replica-set="${mongo.replicaSet}" />
+
+    <mongo:db-factory id="mongoDbFactory"
+                      dbname="${mongo.dbname}"
+                      username="${mongo.username}"
+                      password="${mongo.password}"
+                      mongo-ref="mongo" />
+
+    <bean id="mongoOperations" class="org.springframework.data.mongodb.core.MongoTemplate" scope="prototype">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+    </bean>
+
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate" scope="prototype">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+    </bean>
+
+    <mongo:repositories base-package="com.mycompany.template.repositories" repository-impl-postfix="CustomImpl"/>
+
+    <bean id="myEmf" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="jpaReporter"/>
+        <property name="jpaPropertyMap" ref="jpaProps"/>
+    </bean>
+
+</beans>
