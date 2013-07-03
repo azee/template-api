@@ -27,7 +27,14 @@
 
     <util:properties id="domain" location="classpath:domain.properties"/>
 
-    <mongo:mongo id="mongo" replica-set="${mongo.replicaSet}" />
+    <mongo:mongo id="mongo" replica-set="${mongo.replicaSet}" >
+        <mongo:options
+                connections-per-host="40"
+                threads-allowed-to-block-for-connection-multiplier="1000"
+                connect-timeout="15000"
+                auto-connect-retry="true"
+                socket-timeout="60000" />
+    </mongo:mongo>
 
     <mongo:db-factory id="mongoDbFactory"
                       dbname="${mongo.dbname}"

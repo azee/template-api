@@ -17,7 +17,7 @@
         <runSuite>**/RestSuite.java</runSuite>
     </properties>
 
-    <repositories>
+<!--<repositories>
         <repository>
             <id>java.net</id>
             <name>java.net Maven Repository</name>
@@ -36,7 +36,7 @@
             <layout>default</layout>
         </repository>
     </repositories>
-
+-->
     <dependencies>
 
         <dependency>
