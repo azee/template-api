@@ -41,7 +41,7 @@ public class SomeBeanRestService {
     @DELETE
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Path("/")
-    public void deleteSomeBean(String id) throws Exception {
+    public void deleteSomeBean(@QueryParam("id") String id) throws Exception {
         someBeanService.deleteSomeBean(id);
     }
 
