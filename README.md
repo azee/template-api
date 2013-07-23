@@ -96,18 +96,24 @@ In teplate-rest module there is a debian directory. It allows to build a debian 
 All services are packed into jar and placed into /usr/share/template/template-api/. To run an application you can use an upstart script also included in the debian directory:
 java -cp "/usr/share/template/template-api/lib/*" com.mycompany.template.Main /usr/share/template/template-api/ > /var/log/template/api.log 2>&1
 
+After the application started you will be able to see xml by this url: http://localhost:9001/template-api/application.wadl
+By the way, you can generate a client using that xml and maven wadl plugin.
 
 In the source root you can find a file called template-api. It is an nginx configuration file. It is installed to the /etc/nginx/conf.d directory and can be included into the main nginx.conf.
-
 
 Tests
 =====
 Service and Rest modules contain tests. They are using inmemory Fongo and they are pretty easy - so there is no need to explain how they work. The only interesting thing is that to test a rest we have to start a jetty-server using maven jetty plugin. But it all is already configured in example pom files. 
 
 
+Pager
+=====
+In services you'll be able to find utility for creating a pager. Just pass a total number of records, numbers on page (step) and a starting number from the beginning (startWith) and you'll get an object that is ready to be rendered to UI.
+Also you can provide xtra params that will be added to each url link in pager items.
+
 ToCome
 ======
-Pager service, online docs, client generation
+Online docs, client generation
 
 
  
