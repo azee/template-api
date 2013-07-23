@@ -33,24 +33,9 @@ Data Access Layer (DAL)
 The second module will communicate with our database. To work with Mongo we'll use Spring Data and the Repository-style approach.
 
 All configuration happens in resources/domainContext.xml.
-Here we create our own property placeholder configurer so we could use both property files - local file for debugging and common files in /etc/.. directory on the server.
-<bean id="apiProps" class="com.mycompany.template.utils.TemplatePropertiesPlaceholderConfigurer" >
-        <property name="ignoreResourceNotFound" value="true"/>
-        <property name="localOverride" value="true"/>
-        <property name="locations">
-            <list>
-                <value>file:///${project.parent.basedir}/template-rest/conf/template-api-local.properties</value>
-                <value>file:///etc/template/api/template-api.properties</value>
-                <value>file:///etc/template/api/template-api-hazelcast.properties</value>
-            </list>
-        </property>
-    </bean>
+Here we create our own property placeholder configurer (TemplatePropertiesPlaceholderConfigurer) so we could use both property files - local file for debugging and common files in /etc/.. directory on the server.
 
 Also we define a useful ConfigUtils class that could be used anywhere in the code. ConfigUtils calss was generated previously in the beans module.
-
-<bean class="com.mycompany.template.beans.ConfigUtils">
-        <property name="authEnabled" value="${auth.enabled}" />
-    </bean>
 
 Next we configure mongo connections, replica sets, db and user names and passwords, define mongo factory and mongoTemplate.
 Here we say that our custom repository implementations will be available in package com.mycompany.template.repositories and are marked by postfix as CustomImpl (will explain it a little bit later).
