@@ -10,7 +10,7 @@ This will be a plain web service and it will run on build-in Jetty Server. As a 
 
 As the service will be stateless and the MongoDB is easily clasterized we get a horizontally scalable web service.
 
-Jersey and JAXB we'll help us to provide a RESTfull api. Nginx will proxy requests. 
+Jersey and JAXB will help us to provide a RESTfull api. Nginx will proxy requests. 
 
 In this example the whole app is packaged into the debian package. You can use any other packaging method you like.
 
