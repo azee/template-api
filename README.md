@@ -105,8 +105,9 @@ Tests
 Service and Rest modules contain tests. They are using inmemory Fongo and they are pretty easy - so there is no need to explain how they work. The only interesting thing is that to test a rest we have to start a jetty-server using maven jetty plugin. But it all is already configured in example pom files. 
 
 
-
-
+ToCome
+======
+Pager service, online docs, client generation
 
 
  
