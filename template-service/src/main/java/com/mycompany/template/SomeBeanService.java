@@ -1,11 +1,15 @@
 package com.mycompany.template;
 
+import com.mycompany.template.beans.Pager;
+import com.mycompany.template.beans.Parameter;
 import com.mycompany.template.beans.SomeBean;
 import com.mycompany.template.repositories.PropertyRepository;
 import com.mycompany.template.repositories.SomeBeanRepository;
+import com.mycompany.template.utils.PagerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +26,9 @@ public class SomeBeanService {
 
     @Autowired
     PropertyRepository propertyRepository;
+
+    @Autowired
+    PagerUtils pagerUtils;
 
     /**
      * Geat a SomeBean by id
@@ -96,5 +103,9 @@ public class SomeBeanService {
      */
     public void deleteSomeBean(String id){
         deleteSomeBean(someBeanRepository.findOne(id));
+    }
+
+    public Pager getSomeBeansPager (int skip, int limit){
+        return pagerUtils.getPager(someBeanRepository.count(), limit, skip, new ArrayList<Parameter>());
     }
 }

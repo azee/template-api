@@ -31,6 +31,15 @@
         </xs:sequence>
    </xs:complexType>
 
+    <xs:element name="parameter" type="Parameter"/>
+    <xs:complexType name="Parameter">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="type" type="xs:string"/>
+            <xs:element name="value" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
 </xs:schema>
 
 

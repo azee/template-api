@@ -1,6 +1,7 @@
 package com.mycompany.template.api;
 
 import com.mycompany.template.SomeBeanService;
+import com.mycompany.template.beans.Pager;
 import com.mycompany.template.beans.SomeBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -82,5 +83,13 @@ public class SomeBeanRestService {
     public List<SomeBean> getFiltered(@QueryParam("skip") int skip, @QueryParam("limit") int limit,
                                       @QueryParam("title") String title, @QueryParam("after") long after) throws Exception {
         return someBeanService.findFiltered(skip, limit, title, after);
+    }
+
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Path("/pager")
+    public Pager getPager(@QueryParam("skip") int skip, @QueryParam("limit") int limit) throws Exception {
+        return someBeanService.getSomeBeansPager(skip, limit);
     }
 }
