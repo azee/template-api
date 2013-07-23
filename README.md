@@ -1,3 +1,6 @@
+What is all about
+=================
+
 How to build modern, stateless and scalable web service? This question is a stumbling-stone in todays life. 
 As I used to create high loaded services I created a template that allows to set up a web service fast and easily. Now I'd like to share it with you.
 
