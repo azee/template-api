@@ -73,11 +73,11 @@ Business logic layer. Services.
 I preffer to create separate layers for business logic and web-servicing itself. This allows us to change the business implementation without changing the REST interface contract.
 So, here is the "teplate-service" module. It is a simple module. We just define each class as @Service and use @Autowire to be able to use DAL repositories. See the example: com.mycompany.template.SomeBeanService
 
-Rest Layer. How user see the serice.
+Rest Layer. How user see the service.
 ====================================
 Here we create REST API using Jersey. See the example: com.mycompany.template.api.SomeBeanRestService.
 We use @Autowire annotations to include business logic beans. By annotating methods with GET, POST, PUT, DELETE, Produces, Consumes and parameters with PathParam and QueryParam annotations we define a REST API. I tried to use all friquently used combinations in the example class. 
-All requests and responds will be automatiocall marshalled and unmarshalled. Magic!
+All requests and responds will be automatically marshalled and unmarshalled. Magic!
 
 In utils package you'll find PGJsonProducer class - just leave it there. It will provide json output using Jackson. Otherwise if you'll return a list with just 1 object it'll be marshalled as an object, but not as an array with 1 object which is a good source of bugs on the cliet side.
 
