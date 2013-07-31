@@ -4,12 +4,14 @@ import com.mycompany.template.beans.SomeBean;
 import com.mycompany.template.repositories.custom.SomeBeanRepositoryCustom;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Order;
 import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,7 +30,7 @@ public class SomeBeanRepositoryCustomImpl implements SomeBeanRepositoryCustom {
     @Override
     public List<SomeBean> findLimited(int skip, int limit) {
         Query query = new Query();
-        query.sort().on("time", Order.DESCENDING);
+        query.with(new Sort(Sort.Direction.DESC, Arrays.asList("time")));
         query.limit(limit);
         query.skip(skip);
         return mongoOperations.find(query, SomeBean.class);
@@ -37,7 +39,7 @@ public class SomeBeanRepositoryCustomImpl implements SomeBeanRepositoryCustom {
     @Override
     public List<SomeBean> findLimitedSimple(int skip, int limit) {
         Query query = new Query();
-        query.sort().on("time", Order.DESCENDING);
+        query.with(new Sort(Sort.Direction.DESC, Arrays.asList("time")));
         query.limit(limit);
         query.skip(skip);
         query.fields().exclude("properties");
@@ -48,7 +50,7 @@ public class SomeBeanRepositoryCustomImpl implements SomeBeanRepositoryCustom {
     @Override
     public List<SomeBean> findFiltered(int skip, int limit, String title, long createdAfter) {
         Query query = new Query();
-        query.sort().on("time", Order.DESCENDING);
+        query.with(new Sort(Sort.Direction.DESC, Arrays.asList("time")));
         query.limit(limit);
         query.skip(skip);
 
