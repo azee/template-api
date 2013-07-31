@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
  * User: azee
  */
 public class ImMemoryMongoFactory {
-    private static Fongo fongo = new Fongo("name");
+    private static Fongo fongo = new Fongo("Server name");
 
     public static MongoOperations provide() {
         return new MongoTemplate(fongo.getMongo(), "database");
