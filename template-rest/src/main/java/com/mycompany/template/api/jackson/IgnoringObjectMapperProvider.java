@@ -9,10 +9,8 @@ import javax.ws.rs.ext.Provider;
 
 /**
  * Created with IntelliJ IDEA.
- * User: dervish
  * Date: 2/8/13
  * Time: 11:57 AM
- * To change this template use File | Settings | File Templates.
  */
 @Provider
 public class IgnoringObjectMapperProvider implements ContextResolver<ObjectMapper> {
