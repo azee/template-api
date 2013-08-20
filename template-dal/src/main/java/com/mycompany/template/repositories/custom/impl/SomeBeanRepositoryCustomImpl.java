@@ -30,7 +30,7 @@ public class SomeBeanRepositoryCustomImpl implements SomeBeanRepositoryCustom {
     @Override
     public List<SomeBean> findLimited(int skip, int limit) {
         Query query = new Query();
-        query.with(new Sort(Sort.Direction.DESC, Arrays.asList("time")));
+        query.with(new Sort(Sort.Direction.DESC, Arrays.asList("_id")));
         query.limit(limit);
         query.skip(skip);
         return mongoOperations.find(query, SomeBean.class);
@@ -39,7 +39,7 @@ public class SomeBeanRepositoryCustomImpl implements SomeBeanRepositoryCustom {
     @Override
     public List<SomeBean> findLimitedSimple(int skip, int limit) {
         Query query = new Query();
-        query.with(new Sort(Sort.Direction.DESC, Arrays.asList("time")));
+        query.with(new Sort(Sort.Direction.DESC, Arrays.asList("_id")));
         query.limit(limit);
         query.skip(skip);
         query.fields().exclude("properties");
@@ -50,7 +50,7 @@ public class SomeBeanRepositoryCustomImpl implements SomeBeanRepositoryCustom {
     @Override
     public List<SomeBean> findFiltered(int skip, int limit, String title, long createdAfter) {
         Query query = new Query();
-        query.with(new Sort(Sort.Direction.DESC, Arrays.asList("time")));
+        query.with(new Sort(Sort.Direction.DESC, Arrays.asList("_id")));
         query.limit(limit);
         query.skip(skip);
 
