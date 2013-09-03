@@ -9,9 +9,7 @@
             http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
 
-    <bean id="apiProps" class="com.mycompany.template.utils.TemplatePropertiesPlaceholderConfigurer" >
-        <property name="ignoreResourceNotFound" value="true"/>
-        <property name="localOverride" value="true"/>
+    <bean id="apiProps" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>file:///${project.parent.basedir}/template-rest/conf/template-api-local.properties</value>
@@ -19,6 +17,7 @@
                 <value>file:///etc/template/api/template-api-hazelcast.properties</value>
             </list>
         </property>
+        <property name="ignoreResourceNotFound" value="true"/>
     </bean>
 
     <bean class="com.mycompany.template.beans.ConfigUtils">
