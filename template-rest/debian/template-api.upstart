@@ -9,16 +9,21 @@ pre-start script
     # check exist log dir
     if [ ! -d /var/log/template ]; then
         mkdir /var/log/template
+    fi
+
+    if [ -d /var/log/template ] ; then
         chown -R template:adm /var/log/template
-        exit 0
+    fi
+    if [ -f /var/log/template/api-gc.log ] ; then
+        chown -R template:adm /var/log/template/api-gc.log
     fi
 end script
 
 script
 
-    JAVA_ARGS="-Xmx512m"
+    JAVA_ARGS="-Xmx1024m -Xloggc:/var/log/template/api-gc.log"
 
-    sudo -u template java $JAVA_ARGS -cp "/usr/share/template/template-api/lib/*" com.mycompany.template.Main /usr/share/template/template-api/ > /var/log/template/api.log 2>&1
+    sudo -u template java $JAVA_ARGS -cp "/usr/share/template/template-api/lib/*" com.mycompany.template.Main /usr/share/template/template-api/
 
 end script
 

@@ -26,8 +26,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
-        <jersey.version>1.16</jersey.version>
-        <spring.version>3.1.1.RELEASE</spring.version>
+        <jersey.version>1.17.1</jersey.version>
+        <spring.version>3.2.4.RELEASE</spring.version>
         <spring.security.version>3.1.0.RELEASE</spring.security.version>
         <spring.data.mongodb.version>1.2.1.RELEASE</spring.data.mongodb.version>
         <httpclient.version>4.2.1</httpclient.version>

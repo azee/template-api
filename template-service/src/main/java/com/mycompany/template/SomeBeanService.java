@@ -1,5 +1,6 @@
 package com.mycompany.template;
 
+import com.mycompany.template.aspects.Loggable;
 import com.mycompany.template.beans.Pager;
 import com.mycompany.template.beans.Parameter;
 import com.mycompany.template.beans.SomeBean;
@@ -19,6 +20,7 @@ import java.util.List;
  * Time: 6:01 PM
   */
 @Service
+@Loggable
 public class SomeBeanService {
 
     @Autowired
