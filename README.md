@@ -96,6 +96,10 @@ Pager
 In services you'll be able to find utility for creating a pager. Just pass a total number of records, numbers on page (step) and a starting number from the beginning (startWith) and you'll get an object that is ready to be rendered to UI.
 Also you can provide xtra params that will be added to each url link in pager items.
 
+Aspects
+=======================
+Aspects are used to log methods execution time. Annotation "Laggable" can be applied to a class or to a method.
+
 ToCome
 ======
 Online docs, client generation
