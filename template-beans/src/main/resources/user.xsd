@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="urn:beans.template.mycompany.com"
+           targetNamespace="urn:beans.template.mycompany.com"
+           elementFormDefault="qualified"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           jaxb:version="2.1">
+
+    <xs:element name="user" type="User" />
+    <xs:complexType name="User">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="token" type="xs:string"/>
+            <xs:element name="expire" type="xs:long"/>
+            <xs:element name="sid" type="xs:string"/>
+            <xs:element name="role" type="Role" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="role" type="Role"/>
+    <xs:simpleType name="Role">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ROLE_ADMIN"/>
+            <xs:enumeration value="ROLE_BETATESTER"/>
+            <xs:enumeration value="ROLE_MANAGER"/>
+            <xs:enumeration value="ROLE_USER"/>
+            <xs:enumeration value="ROLE_GUEST"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="action" type="Action"/>
+    <xs:simpleType name="Action">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ACTION_CREATE"/>
+            <xs:enumeration value="ACTION_READ"/>
+            <xs:enumeration value="ACTION_UPDATE"/>
+            <xs:enumeration value="ACTION_DELETE"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+</xs:schema>

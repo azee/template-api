@@ -16,16 +16,31 @@
         </jaxb:globalBindings>
     </jaxb:bindings>
 
-    <jaxb:bindings schemaLocation="utils.xsd" node="/xs:schema">
+    <!-- User -->
+    <jaxb:bindings schemaLocation="user.xsd" node="/xs:schema">
         <jaxb:bindings node="xs:simpleType[@name='Role']">
             <annox:annotate target="class">
                 <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement"
                                 name="role"/>
             </annox:annotate>
         </jaxb:bindings>
+
+        <jaxb:bindings node="xs:complexType[@name='User']">
+            <annox:annotate target="class">
+                <annox:annotate annox:class="org.springframework.data.mongodb.core.mapping.Document"
+                                collection="tms_users"/>
+            </annox:annotate>
+        </jaxb:bindings>
+
+        <jaxb:bindings node="xs:complexType[@name='User']/xs:sequence/xs:element[@name='id']">
+            <annox:annotate target="field">
+                <annox:annotate annox:class="org.springframework.data.annotation.Id"/>
+            </annox:annotate>
+        </jaxb:bindings>
     </jaxb:bindings>
 
 
+    <!-- Beans -->
     <jaxb:bindings schemaLocation="beans.xsd" node="/xs:schema">
 
         <jaxb:bindings node="xs:complexType[@name='BaseSomeBean']/xs:sequence/xs:element[@name='id']">
