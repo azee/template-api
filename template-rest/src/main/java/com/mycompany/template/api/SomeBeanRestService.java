@@ -1,6 +1,6 @@
 package com.mycompany.template.api;
 
-import com.mycompany.template.SomeBeanService;
+import com.mycompany.template.services.SomeBeanService;
 import com.mycompany.template.beans.Pager;
 import com.mycompany.template.beans.SomeBean;
 import org.springframework.beans.factory.annotation.Autowired;

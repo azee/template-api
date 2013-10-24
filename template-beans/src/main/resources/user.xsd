@@ -11,8 +11,10 @@
         <xs:sequence>
             <xs:element name="id" type="xs:string"/>
             <xs:element name="name" type="xs:string"/>
+            <xs:element name="password" type="xs:string"/>
             <xs:element name="token" type="xs:string"/>
-            <xs:element name="expire" type="xs:long"/>
+            <xs:element name="tokenExpire" type="xs:long"/>
+            <xs:element name="cookieExpire" type="xs:long"/>
             <xs:element name="sid" type="xs:string"/>
             <xs:element name="role" type="Role" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>

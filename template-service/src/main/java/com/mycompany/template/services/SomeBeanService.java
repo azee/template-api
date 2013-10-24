@@ -1,4 +1,4 @@
-package com.mycompany.template;
+package com.mycompany.template.services;
 
 import com.mycompany.template.aspects.Loggable;
 import com.mycompany.template.beans.Pager;

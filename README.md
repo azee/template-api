@@ -56,7 +56,7 @@ Thats it. We've created a DAL repositories we can use in other modules.
 Business logic layer. Services.
 ===============================
 I preffer to create separate layers for business logic and web-servicing itself. This allows us to change the business implementation without changing the REST interface contract.
-So, here is the "teplate-service" module. It is a simple module. We just define each class as @Service and use @Autowire to be able to use DAL repositories. See the example: com.mycompany.template.SomeBeanService
+So, here is the "teplate-service" module. It is a simple module. We just define each class as @Service and use @Autowire to be able to use DAL repositories. See the example: com.mycompany.template.services.SomeBeanService
 
 Rest Layer. How user see the service.
 ====================================

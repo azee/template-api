@@ -13,6 +13,9 @@ public interface UserRepository extends PagingAndSortingRepository<User, String>
     @Query("{ 'token' : ?0 }")
     User findByToken(String token);
 
+    @Query("{ 'cookie' : ?0 }")
+    User findByCookie(String cookie);
+
     @Query ("{ 'name' : ?0 }")
     User findByName(String name);
 }
