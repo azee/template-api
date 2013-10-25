@@ -1,4 +1,4 @@
-package com.mycompany.template.api;
+package com.mycompany.template.api.services;
 
 import com.mycompany.template.beans.User;
 import com.mycompany.template.services.UserService;

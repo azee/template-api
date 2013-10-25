@@ -1,4 +1,4 @@
-package com.mycompany.template.api;
+package com.mycompany.template.api.services;
 
 import com.mycompany.template.services.SomeBeanService;
 import com.mycompany.template.beans.Pager;
