@@ -60,7 +60,7 @@ So, here is the "teplate-service" module. It is a simple module. We just define 
 
 Rest Layer. How user see the service.
 ====================================
-Here we create REST API using Jersey. See the example: com.mycompany.template.api.SomeBeanRestService.
+Here we create REST API using Jersey. See the example: com.mycompany.template.api.services.SomeBeanRestService.
 We use @Autowire annotations to include business logic beans. By annotating methods with GET, POST, PUT, DELETE, Produces, Consumes and parameters with PathParam and QueryParam annotations we define a REST API. I tried to use all friquently used combinations in the example class. 
 All requests and responds will be automatically marshalled and unmarshalled. Magic!
 

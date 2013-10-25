@@ -4,6 +4,7 @@ import com.mycompany.template.beans.User;
 import com.mycompany.template.services.UserService;
 import com.mycompany.template.utils.UserDataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
@@ -27,6 +28,9 @@ public class UserRestService {
     @Autowired
     UserDataUtils userDataUtils;
 
+    @Autowired
+    private Authentication authentication;
+
     @GET
     @Path("/authorise")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -39,5 +43,12 @@ public class UserRestService {
             return Response.serverError().status(401).build();
         }
         return Response.ok(user).cookie(new NewCookie(userDataUtils.getSidCookieName(), user.getSid())).build();
+    }
+
+    @GET
+    @Path("/")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public User authorise() throws Exception {
+        return (User) authentication.getPrincipal();
     }
 }

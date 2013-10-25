@@ -4,6 +4,7 @@ import com.mycompany.template.services.SomeBeanService;
 import com.mycompany.template.beans.Pager;
 import com.mycompany.template.beans.SomeBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 @Component
 @Path("/some-bean")
+@PreAuthorize("isAuthenticated()")
 public class SomeBeanRestService {
 
     @Autowired

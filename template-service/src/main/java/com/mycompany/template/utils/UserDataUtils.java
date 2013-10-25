@@ -1,5 +1,6 @@
 package com.mycompany.template.utils;
 
+import com.mycompany.template.beans.Role;
 import com.mycompany.template.beans.User;
 import com.mycompany.template.services.UserService;
 import org.apache.log4j.Logger;
@@ -20,7 +21,7 @@ public class UserDataUtils {
     @Autowired
     UserService userService;
 
-    private String SID_COOKIE_NAME = "sid";
+    private String SID_COOKIE_NAME = "JSESSIONID";
 
     public String getSidCookieName() {
         return SID_COOKIE_NAME;
@@ -37,6 +38,8 @@ public class UserDataUtils {
         user.setTokenExpire(Long.MAX_VALUE);
         user.setId(UUID.randomUUID().toString());
         user.setToken(Long.toString(new Date().getTime()));
+        user.getRoles().clear();
+        user.getRoles().add(Role.ROLE_GUEST);
         return user;
     }
 
