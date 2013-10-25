@@ -1,6 +1,6 @@
 package com.mycompany.template.service;
 
-import com.mycompany.template.SomeBeanService;
+import com.mycompany.template.services.SomeBeanService;
 import com.mycompany.template.beans.Property;
 import com.mycompany.template.beans.SomeBean;
 import org.junit.Test;
