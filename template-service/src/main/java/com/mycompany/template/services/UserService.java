@@ -70,6 +70,11 @@ public class UserService {
         if (!encodedPass.equals(user.getPassword())){
             throw new RuntimeException("Password is incorrect");
         }
+
+        user.setSid(UUID.randomUUID().toString());
+        user.setCookieExpire(new Date().getTime() + COOKIE_TIMEOUT);
+        usersRepository.save(user);
+
         return user;
     }
 
