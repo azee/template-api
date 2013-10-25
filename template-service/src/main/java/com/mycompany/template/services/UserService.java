@@ -80,6 +80,10 @@ public class UserService {
             throw new RuntimeException("Password is incorrect");
         }
 
+        //Set a new cookie
+        user.setSid(UUID.randomUUID().toString());
+        user.setCookieExpire(new Date().getTime() + COOKIE_TIMEOUT);
+
         return user;
     }
 
