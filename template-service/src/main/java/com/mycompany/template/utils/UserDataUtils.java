@@ -4,6 +4,7 @@ import com.mycompany.template.beans.User;
 import com.mycompany.template.services.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -14,13 +15,15 @@ import java.util.UUID;
  * Created with IntelliJ IDEA.
  * User: azee
  */
+@Service
 public class UserDataUtils {
     private static final Logger logger = Logger.getLogger(UserDataUtils.class);
 
     @Autowired
     UserService userService;
 
-    private String SID_COOKIE_NAME = "sid";
+    //private String SID_COOKIE_NAME = "JSESSIONID";
+    private String SID_COOKIE_NAME = "SID";
 
     public String getSidCookieName() {
         return SID_COOKIE_NAME;
@@ -56,26 +59,5 @@ public class UserDataUtils {
             }
         }
         return sidCookie;
-    }
-
-    /**
-     * Return a user by cookie
-     * @param hsr
-     * @return
-     * @throws Exception
-     */
-    public User getUserData(HttpServletRequest hsr) throws Exception {
-        User user = new User();
-
-        if ((hsr == null || hsr.getCookies() == null)){
-            return user;
-        }
-        Cookie sid = getSidFromRequest(hsr);
-        if (sid == null){
-            return user;
-        }
-
-        //Authorise User by cookie
-        return userService.checkSid(sid.getValue());
     }
 }

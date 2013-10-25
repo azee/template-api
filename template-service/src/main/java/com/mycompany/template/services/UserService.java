@@ -2,23 +2,33 @@ package com.mycompany.template.services;
 
 import com.mycompany.template.beans.Role;
 import com.mycompany.template.beans.User;
+import com.mycompany.template.exceptions.AuthException;
 import com.mycompany.template.repositories.UserRepository;
 import com.mycompany.template.utils.StringUtils;
+import com.mycompany.template.utils.UserDataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
  * User: azee
   */
+@Service
 public class UserService {
     @Autowired
     private UserRepository usersRepository;
 
     @Autowired
     private StringUtils stringUtils;
+
+    @Autowired
+    UserDataUtils userDataUtils;
 
     @Value("#{internal['token.timeout']}")
     private long TOKEN_TIMEOUT;
@@ -52,7 +62,7 @@ public class UserService {
      * @param user
      * @throws Exception
      */
-    private void updateCookieExpire(User user) throws Exception {
+    private void updateCookieExpire(User user) throws AuthException {
         user.setCookieExpire(user.getCookieExpire() + COOKIE_TIMEOUT);
         usersRepository.save(user);
     }
@@ -65,47 +75,51 @@ public class UserService {
      * @return
      * @throws Exception
      */
-    public User authenticate(String login, String pass) throws Exception {
+    public User authenticate(String login, String pass) throws AuthException, NoSuchAlgorithmException {
         if (pass == null || login == null){
-            throw new RuntimeException("You must specify login and password");
+            throw new AuthException("You must specify login and password");
         }
 
         //Encode a pass - we don't want to store passwords as is
         String encodedPass = stringUtils.getMd5String(pass);
         User user = getUserByName(login);
         if (user == null){
-            throw new RuntimeException("Can't find user [" + login + "].");
+            throw new AuthException("Can't find user [" + login + "].");
         }
         if (!encodedPass.equals(user.getPassword())){
-            throw new RuntimeException("Password is incorrect");
+            throw new AuthException("Password is incorrect");
         }
 
         //Set a new cookie
         user.setSid(UUID.randomUUID().toString());
         user.setCookieExpire(new Date().getTime() + COOKIE_TIMEOUT);
+        usersRepository.save(user);
 
         return user;
     }
 
     /**
      * Authenticate a user by sessionId cookie
-     * @param sidCookieValue
+     * @param hsr
      * @return
      * @throws Exception
      */
-    public User checkSid(String sidCookieValue) throws Exception {
-        if (sidCookieValue == null){
-            throw new RuntimeException("Cookie is empty");
+    public User checkSid(HttpServletRequest hsr) throws AuthException {
+        if (hsr == null){
+            throw new AuthException("Cookie is empty");
+        }
+        Cookie cookie = userDataUtils.getSidFromRequest(hsr);
+
+        if (cookie == null){
+            throw new AuthException("Cookie is empty");
         }
 
-        //Encode a pass - we don't want to store cookies as is
-        String cookie = stringUtils.getMd5String(sidCookieValue);
-        User user = getUserByCookie(cookie);
+        User user = getUserByCookie(cookie.getValue());
         if (user == null){
-            throw new RuntimeException("Can't find user for provided cookies.");
+            throw new AuthException("Can't find user for provided cookies.");
         }
         if (user.getCookieExpire() < new Date().getTime()){
-            throw new RuntimeException("Cookie has expired");
+            throw new AuthException("Cookie has expired");
         }
         updateCookieExpire(user);
         return user;
@@ -118,14 +132,14 @@ public class UserService {
      * @return
      * @throws Exception
      */
-    public User getUserByCookie(String cookie) throws Exception {
+    public User getUserByCookie(String cookie) throws AuthException {
         User user = usersRepository.findByCookie(cookie);
         if (user != null && user.getCookieExpire() > new Date().getTime()){
             updateCookieExpire(user);
             return user;
         }
         else {
-            throw new RuntimeException("Can't find user or cookie has expired.");
+            throw new AuthException("Can't find user or cookie has expired.");
         }
     }
 
@@ -151,13 +165,13 @@ public class UserService {
      * @return
      * @throws Exception
      */
-    public User getUserByName(String name) throws Exception {
+    public User getUserByName(String name) throws AuthException {
         User user = usersRepository.findByName(name);
         if (user != null){
             return user;
         }
         else {
-            throw new RuntimeException("Can't find user [" + name + "]");
+            throw new AuthException("Can't find user [" + name + "]");
         }
     }
 
@@ -204,6 +218,20 @@ public class UserService {
      */
     public User removeUserCookie(String cookie) throws Exception {
         User user = usersRepository.findByCookie(cookie);
+        if (user != null) {
+            user.setSid("");
+            user.setCookieExpire(0);
+            usersRepository.save(user);
+        }
+        return new User();
+    }
+
+    /**
+     * Removes user cookie
+     * @param user
+     * @throws Exception
+     */
+    public User removeUserCookie(User user) throws Exception {
         if (user != null) {
             user.setSid("");
             user.setCookieExpire(0);
