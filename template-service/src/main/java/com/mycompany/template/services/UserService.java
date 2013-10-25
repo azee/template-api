@@ -96,7 +96,7 @@ public class UserService {
 
         //Encode a pass - we don't want to store cookies as is
         String cookie = stringUtils.getMd5String(sidCookieValue);
-        User user = getUserByCookie(sidCookieValue);
+        User user = getUserByCookie(cookie);
         if (user == null){
             throw new RuntimeException("Can't find user for provided cookies.");
         }
