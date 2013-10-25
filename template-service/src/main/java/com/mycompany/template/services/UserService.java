@@ -6,6 +6,7 @@ import com.mycompany.template.repositories.UserRepository;
 import com.mycompany.template.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
@@ -13,6 +14,7 @@ import java.util.*;
  * Created with IntelliJ IDEA.
  * User: azee
   */
+@Service
 public class UserService {
     @Autowired
     private UserRepository usersRepository;
@@ -48,17 +50,6 @@ public class UserService {
     }
 
     /**
-     * Update a specific cookie expiration with default value
-     * @param user
-     * @throws Exception
-     */
-    private void updateCookieExpire(User user) throws Exception {
-        user.setCookieExpire(user.getCookieExpire() + COOKIE_TIMEOUT);
-        usersRepository.save(user);
-    }
-
-
-    /**
      * Authenticate a user by pass and login
      * @param login
      * @param pass
@@ -79,54 +70,7 @@ public class UserService {
         if (!encodedPass.equals(user.getPassword())){
             throw new RuntimeException("Password is incorrect");
         }
-
-        //Set a new cookie
-        user.setSid(UUID.randomUUID().toString());
-        user.setCookieExpire(new Date().getTime() + COOKIE_TIMEOUT);
-
         return user;
-    }
-
-    /**
-     * Authenticate a user by sessionId cookie
-     * @param sidCookieValue
-     * @return
-     * @throws Exception
-     */
-    public User checkSid(String sidCookieValue) throws Exception {
-        if (sidCookieValue == null){
-            throw new RuntimeException("Cookie is empty");
-        }
-
-        //Encode a pass - we don't want to store cookies as is
-        String cookie = stringUtils.getMd5String(sidCookieValue);
-        User user = getUserByCookie(cookie);
-        if (user == null){
-            throw new RuntimeException("Can't find user for provided cookies.");
-        }
-        if (user.getCookieExpire() < new Date().getTime()){
-            throw new RuntimeException("Cookie has expired");
-        }
-        updateCookieExpire(user);
-        return user;
-    }
-
-
-    /**
-     * Get e user with specific cookie
-     * @param cookie
-     * @return
-     * @throws Exception
-     */
-    public User getUserByCookie(String cookie) throws Exception {
-        User user = usersRepository.findByCookie(cookie);
-        if (user != null && user.getCookieExpire() > new Date().getTime()){
-            updateCookieExpire(user);
-            return user;
-        }
-        else {
-            throw new RuntimeException("Can't find user or cookie has expired.");
-        }
     }
 
     /**
@@ -192,21 +136,6 @@ public class UserService {
         if (user != null) {
             user.setToken(null);
             user.setTokenExpire(0);
-            usersRepository.save(user);
-        }
-        return new User();
-    }
-
-    /**
-     * Removes user cookie
-     * @param cookie
-     * @throws Exception
-     */
-    public User removeUserCookie(String cookie) throws Exception {
-        User user = usersRepository.findByCookie(cookie);
-        if (user != null) {
-            user.setSid("");
-            user.setCookieExpire(0);
             usersRepository.save(user);
         }
         return new User();
