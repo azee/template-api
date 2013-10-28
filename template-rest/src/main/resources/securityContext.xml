@@ -6,12 +6,29 @@
                     http://www.springframework.org/schema/security
                     http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-    <!--<global-method-security secured-annotations="enabled"   pre-post-annotations="enabled"/>
+    <global-method-security secured-annotations="enabled"   pre-post-annotations="enabled"/>
 
-	<http auto-config="true" use-expressions="true" create-session="ifRequired" >
-        <intercept-url pattern="/template-api/some-bean/all" access="hasAnyRole('ROLE_ADMIN')" />
+    <http auto-config="false" use-expressions="true" create-session="ifRequired" >
         <intercept-url pattern="/**" access="permitAll" />
-        <form-login />
-	</http>-->
+        <intercept-url pattern="/template-api/some-bean/all" access="hasAnyRole('ROLE_ADMIN, ROLE_BETATESTER')" />
+        <custom-filter position="PRE_AUTH_FILTER" ref="authFilter" />
+        <form-login login-page=''/>
+    </http>
+
+    <authentication-manager alias="am">
+        <authentication-provider ref="preauthAuthProvider"></authentication-provider>
+    </authentication-manager>
+
+    <beans:bean id="preauthAuthProvider"
+                class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">
+        <beans:property name="preAuthenticatedUserDetailsService">
+            <beans:bean class="com.mycompany.template.security.PreAuthUserDetails"></beans:bean>
+        </beans:property>
+        <beans:property name="order" value="1"/>
+    </beans:bean>
+
+    <beans:bean id="authFilter" class="com.mycompany.template.security.AuthFilter">
+        <beans:property name="authenticationManager" ref="am"/>
+    </beans:bean>
 
 </beans:beans>
