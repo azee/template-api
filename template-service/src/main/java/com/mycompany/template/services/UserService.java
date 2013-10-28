@@ -30,16 +30,11 @@ public class UserService {
     @Autowired
     UserDataUtils userDataUtils;
 
+    @Value("#{internal['token.timeout']}")
+    private long TOKEN_TIMEOUT;
 
-//ToDo: fix nulls here
-//    @Value("#{internal['token.timeout']}")
-//    private long TOKEN_TIMEOUT;
-//
-//    @Value("#{internal['cookie.timeout']}")
-//    private long COOKIE_TIMEOUT;
-
-    private long TOKEN_TIMEOUT = 259200000;
-    private long COOKIE_TIMEOUT = 7200000;
+    @Value("#{internal['cookie.timeout']}")
+    private long COOKIE_TIMEOUT;
 
     /**
      * Update a specific token expiration with default value
