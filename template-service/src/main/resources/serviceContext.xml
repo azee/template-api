@@ -7,8 +7,7 @@
     http://www.springframework.org/schema/util
 	http://www.springframework.org/schema/util/spring-util-2.0.xsd
 	http://www.springframework.org/schema/data/mongo
-    http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
-	">
+    http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
     <import resource="classpath*:domainContext.xml"/>
     <util:properties id="internal" location="classpath:internal.properties"/>
 
