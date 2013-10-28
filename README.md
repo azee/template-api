@@ -75,6 +75,12 @@ Ok, we created objects, DAL, services and REST. How to make it all work?
 In the template-rest module you'll find the Main class. A jetty server configuration happens there. It also starts the app. You can define a port, number of threads, web.xml source there. And yep, don't forget a web.xml. It is placed in resources/META-INF/webapp/WEB-INF. It defines context and servlets handlers. Also you can include a spring sequrity context there. But this is already another story...  
 
 
+Authorisation
+=============
+Authorisation us implemented as Spring Security filters and custom authentication REST handlers.
+Authorisation is by cookie "sid" (sessionId).
+
+
 Build and Run
 ==============
 In teplate-rest module there is a debian directory. It allows to build a debian package using debhelper. Just run [dch -i] to update a changelog and [debuild] afterwards.
