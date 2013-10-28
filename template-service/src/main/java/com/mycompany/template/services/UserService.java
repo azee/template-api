@@ -100,12 +100,11 @@ public class UserService {
 
     /**
      * Authenticate a user by sessionId cookie
-     * @param userId
      * @param hsr
      * @return
      * @throws Exception
      */
-    public User checkSid(String userId, HttpServletRequest hsr) throws AuthException {
+    public User checkSid(HttpServletRequest hsr) throws AuthException {
         if (hsr == null){
             throw new AuthException("Cookie is empty");
         }
@@ -116,9 +115,7 @@ public class UserService {
             throw new AuthException("Cookie is empty");
         }
 
-        User user;
-        user = userId == null ? getUserByCookie(cookie.getValue()) : usersRepository.findOne(userId);
-
+        User user = getUserByCookie(cookie.getValue());
         if (user == null){
             throw new AuthException("Can't find user for provided cookies.");
         }
@@ -129,17 +126,6 @@ public class UserService {
         updateCookieExpire(user);
         return user;
     }
-
-    /**
-     * Authenticate a user by sessionId cookie
-     * @param hsr
-     * @return
-     * @throws Exception
-     */
-    public User checkSid(HttpServletRequest hsr) throws AuthException {
-        return checkSid(null, hsr);
-    }
-
 
     /**
      * Get e user with specific cookie

@@ -54,37 +54,18 @@ public class UserRestService {
         }
     }
 
-//    @GET
-//    @Path("/sid")
-//    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-//    public Response authoriseBySid(@Context HttpServletRequest hsr) throws Exception {
-//        try {
-//            User user = userService.checkSid(hsr);
-//            return Response.ok(user).build();
-//        } catch (AuthException e){
-//            return Response.serverError().status(401).build();
-//        }
-//    }
-
-    /**
-     * Check a user by sid. Using userId param so we can retrieve user fast by id without extra indexing
-     * @param userId
-     * @param hsr
-     * @return
-     * @throws Exception
-     */
     @GET
-    @Path("/{userId}/sid")
+    @Path("/sid")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response authoriseBySid(@PathParam("userId") String userId,
-            @Context HttpServletRequest hsr) throws Exception {
+    public Response authoriseBySid(@Context HttpServletRequest hsr) throws Exception {
         try {
-            User user = userService.checkSid(userId, hsr);
+            User user = userService.checkSid(hsr);
             return Response.ok(user).build();
         } catch (AuthException e){
             return Response.serverError().status(401).build();
         }
     }
+
 
     /**
      * Logout a user
