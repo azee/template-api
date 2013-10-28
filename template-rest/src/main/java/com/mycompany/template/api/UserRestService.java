@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
@@ -34,6 +31,14 @@ public class UserRestService {
     @Autowired
     UserDataUtils userDataUtils;
 
+    /**
+     * Authorise a user by login and password. Sets a cookie.
+     * @param login
+     * @param pass
+     * @param hsr
+     * @return
+     * @throws Exception
+     */
     @GET
     @Path("/authorise")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -49,19 +54,44 @@ public class UserRestService {
         }
     }
 
+//    @GET
+//    @Path("/sid")
+//    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+//    public Response authoriseBySid(@Context HttpServletRequest hsr) throws Exception {
+//        try {
+//            User user = userService.checkSid(hsr);
+//            return Response.ok(user).build();
+//        } catch (AuthException e){
+//            return Response.serverError().status(401).build();
+//        }
+//    }
+
+    /**
+     * Check a user by sid. Using userId param so we can retrieve user fast by id without extra indexing
+     * @param userId
+     * @param hsr
+     * @return
+     * @throws Exception
+     */
     @GET
-    @Path("/sid")
+    @Path("/{userId}/sid")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response authoriseBySid(@Context HttpServletRequest hsr) throws Exception {
+    public Response authoriseBySid(@PathParam("userId") String userId,
+            @Context HttpServletRequest hsr) throws Exception {
         try {
-            User user = userService.checkSid(hsr);
-            return Response.ok(user).cookie(new NewCookie(userDataUtils.getSidCookieName(), user.getSid())).build();
+            User user = userService.checkSid(userId, hsr);
+            return Response.ok(user).build();
         } catch (AuthException e){
             return Response.serverError().status(401).build();
         }
-
     }
 
+    /**
+     * Logout a user
+     * @param hsr
+     * @return
+     * @throws Exception
+     */
     @GET
     @Path("/logout")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

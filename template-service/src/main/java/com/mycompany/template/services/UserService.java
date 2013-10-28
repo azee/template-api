@@ -100,29 +100,44 @@ public class UserService {
 
     /**
      * Authenticate a user by sessionId cookie
+     * @param userId
+     * @param hsr
+     * @return
+     * @throws Exception
+     */
+    public User checkSid(String userId, HttpServletRequest hsr) throws AuthException {
+        if (hsr == null){
+            throw new AuthException("Cookie is empty");
+        }
+
+        //Get a cookie from the request
+        Cookie cookie = userDataUtils.getSidFromRequest(hsr);
+        if (cookie == null){
+            throw new AuthException("Cookie is empty");
+        }
+
+        User user;
+        user = userId == null ? getUserByCookie(cookie.getValue()) : usersRepository.findOne(userId);
+
+        if (user == null){
+            throw new AuthException("Can't find user for provided cookies.");
+        }
+        if (user.getCookieExpire() < new Date().getTime() ||
+                !cookie.getValue().equals(user.getSid())){
+            throw new AuthException("Cookie has expired");
+        }
+        updateCookieExpire(user);
+        return user;
+    }
+
+    /**
+     * Authenticate a user by sessionId cookie
      * @param hsr
      * @return
      * @throws Exception
      */
     public User checkSid(HttpServletRequest hsr) throws AuthException {
-        if (hsr == null){
-            throw new AuthException("Cookie is empty");
-        }
-        Cookie cookie = userDataUtils.getSidFromRequest(hsr);
-
-        if (cookie == null){
-            throw new AuthException("Cookie is empty");
-        }
-
-        User user = getUserByCookie(cookie.getValue());
-        if (user == null){
-            throw new AuthException("Can't find user for provided cookies.");
-        }
-        if (user.getCookieExpire() < new Date().getTime()){
-            throw new AuthException("Cookie has expired");
-        }
-        updateCookieExpire(user);
-        return user;
+        return checkSid(null, hsr);
     }
 
 
