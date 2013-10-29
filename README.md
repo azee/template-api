@@ -43,8 +43,6 @@ Here we say that our custom repository implementations will be available in pack
 All properties are stored in property files in teplate-rest module (later about that).
 
 Now we'll have to create mongo repositories. 
-Firs of all - utils package contains 2 classes. TemplatePropertiesPlaceholderConfigurer as said before - provides properties from several files - searches for the property file from the top of the list and uses only one. ImMemoryMongoFactory will help us later to create tests.
-
 To perform simple actions with collection you can just define an interface extending PagingAndSortingRepository. It is generic so you can define a bean class to work with.
 As an example - PropertyRepository in com.mycompany.template.repositories package. By including this repository using @Autowired (will show it later) you'll be able to perform fetching, saving and removing data wothout a single line of the implementing code! Wow!
 
@@ -55,8 +53,8 @@ Thats it. We've created a DAL repositories we can use in other modules.
 
 Business logic layer. Services.
 ===============================
-I preffer to create separate layers for business logic and web-servicing itself. This allows us to change the business implementation without changing the REST interface contract.
-So, here is the "teplate-service" module. It is a simple module. We just define each class as @Service and use @Autowire to be able to use DAL repositories. See the example: com.mycompany.template.services.SomeBeanService
+I prefer to create separate layers for business logic and web-servicing itself. This allows us to change the business implementation without changing the REST interface contract.
+So, here is the "template-service" module. It is a simple module. We just define each class as @Service and use @Autowire to be able to use DAL repositories. See the example: com.mycompany.template.services.SomeBeanService
 
 Rest Layer. How user see the service.
 ====================================
