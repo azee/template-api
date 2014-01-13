@@ -18,4 +18,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, String>
 
     @Query ("{ 'name' : ?0 }")
     User findByName(String name);
+
+    @Query ("{ 'email' : ?0 }")
+    User findByEmail(String email);
 }

@@ -85,4 +85,32 @@ public class UserRestService {
         }
         return Response.ok().build();
     }
+
+    /**
+     * Creates a new Unverified user
+     * @param login
+     * @param pass
+     * @param email
+     * @return
+     * @throws Exception
+     */
+    @POST
+    @Path("/")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response create(
+            @QueryParam("login") final String login,
+            @QueryParam("pass") final String pass,
+            @QueryParam("email") final String email) throws Exception {
+        User user;
+        try {
+            userService.getUserByName(login);
+            userService.getUserByEmail(login);
+            user = userService.createUser(login, pass, email);
+        } catch (AuthException e){
+            return Response.serverError().status(409).build();
+        }
+
+        return Response.ok(user).build();
+    }
 }

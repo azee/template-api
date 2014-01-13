@@ -6,6 +6,7 @@ import com.mycompany.template.exceptions.AuthException;
 import com.mycompany.template.repositories.UserRepository;
 import com.mycompany.template.utils.StringUtils;
 import com.mycompany.template.utils.UserDataUtils;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,19 @@ public class UserService {
 
     @Value("#{internal['cookie.timeout']}")
     private long COOKIE_TIMEOUT;
+
+    public User createUser(String login, String password, String email) throws NoSuchAlgorithmException {
+        User user = new User();
+        user.setName(login);
+        user.setPassword(stringUtils.getMd5String(password));
+        user.setEmail(email);
+        user.setId(ObjectId.get().toString());
+
+        //ToDo: send auth email here
+
+        usersRepository.save(user);
+        return user;
+    }
 
     /**
      * Update a specific token expiration with default value
@@ -173,6 +187,22 @@ public class UserService {
         }
         else {
             throw new AuthException("Can't find user [" + name + "]");
+        }
+    }
+
+    /**
+     * Get a user by email
+     * @param email
+     * @return
+     * @throws Exception
+     */
+    public User getUserByEmail(String email) throws AuthException {
+        User user = usersRepository.findByEmail(email);
+        if (user != null){
+            return user;
+        }
+        else {
+            throw new AuthException("Can't find user with email [" + email + "]");
         }
     }
 
