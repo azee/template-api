@@ -113,4 +113,24 @@ public class UserRestService {
 
         return Response.ok(user).build();
     }
+
+    /**
+     * Verify user's email link handler
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    @GET
+    @Path("/{id}/verify")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response verify(@PathParam("id") final String id) throws Exception {
+        User user;
+        try {
+            user = userService.verifyUser(id);
+        } catch (AuthException e){
+            return Response.serverError().status(401).build();
+        }
+        return Response.ok(user).build();
+    }
 }

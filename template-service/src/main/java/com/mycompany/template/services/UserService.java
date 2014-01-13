@@ -37,6 +37,14 @@ public class UserService {
     @Value("#{internal['cookie.timeout']}")
     private long COOKIE_TIMEOUT;
 
+    /**
+     * Creates a user with UNVERIFIED permissions
+     * @param login
+     * @param password
+     * @param email
+     * @return
+     * @throws NoSuchAlgorithmException
+     */
     public User createUser(String login, String password, String email) throws NoSuchAlgorithmException {
         User user = new User();
         user.setName(login);
@@ -51,6 +59,28 @@ public class UserService {
         usersRepository.save(user);
         return user;
     }
+
+    /**
+     * Will fetch the user by temp id, remove him, set new Role and save with a new ID
+     * @param id
+     * @return
+     */
+    public User verifyUser(String id) throws AuthException {
+        User user = usersRepository.findOne(id);
+        if (user == null){
+            throw new AuthException("Can't find a user.");
+        }
+
+        if (hasRole(user, Role.ROLE_UNVERIFIED)){
+            removeRoleFromList(Role.ROLE_UNVERIFIED.value(), user);
+            usersRepository.delete(id);
+            user.setId(ObjectId.get().toString());
+            return usersRepository.save(user);
+        }
+
+        return user;
+    }
+
 
     /**
      * Update a specific token expiration with default value
@@ -289,6 +319,31 @@ public class UserService {
      * @param user
      */
     public void removeRole(String role, User user) {
+        removeRoleFromList(role, user);
+        usersRepository.save(user);
+    }
+
+    /**
+     * Search for a role in a user object
+     * @param user
+     * @param role
+     * @return
+     */
+    private boolean hasRole(User user, Role role){
+        for (Role presentedRole : user.getRoles()){
+            if (presentedRole.equals(role)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Removes a role from user if it exists
+     * @param role
+     * @param user
+     */
+    public void removeRoleFromList(String role, User user) {
         List<Role> newRoles = new ArrayList<Role>();
         for (Role presentedRole : user.getRoles()){
             if (!presentedRole.equals(role)) {
@@ -297,6 +352,5 @@ public class UserService {
         }
         user.getRoles().clear();
         user.getRoles().addAll(newRoles);
-        usersRepository.save(user);
     }
 }
