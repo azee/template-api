@@ -43,6 +43,8 @@ public class UserService {
         user.setPassword(stringUtils.getMd5String(password));
         user.setEmail(email);
         user.setId(ObjectId.get().toString());
+        user.getRoles().clear();
+        user.getRoles().add(Role.ROLE_UNVERIFIED);
 
         //ToDo: send auth email here
 
