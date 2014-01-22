@@ -35,11 +35,9 @@ public class SomeBeanRestTest{
     private void createSomeBeansCollection(){
         Client client = Client.create();
         WebResource webResource = client.resource(SERVICE_PATH);
-        webResource.path(SERVICE_PATH)
-                .accept(MediaType.APPLICATION_XML)
+        webResource.accept(MediaType.APPLICATION_XML)
                 .put(buildSomeBean());
-        webResource.path(SERVICE_PATH)
-                .accept(MediaType.APPLICATION_XML)
+        webResource.accept(MediaType.APPLICATION_XML)
                 .put(buildSomeBean());
     }
 
@@ -72,8 +70,9 @@ public class SomeBeanRestTest{
     public void testGetSomeBeans() throws Exception {
         createSomeBeansCollection();
         Client client = Client.create();
-        WebResource webResource = client.resource(SERVICE_PATH + GET_ALL_PATH);
-        ClientResponse response = webResource.accept(MediaType.APPLICATION_XML)
+        WebResource webResource = client.resource(SERVICE_PATH);
+        ClientResponse response = webResource.path(GET_ALL_PATH)
+                .accept(MediaType.APPLICATION_XML)
                 .get(ClientResponse.class);
         List<SomeBean> someBeans = response.getEntity(new GenericType<List<SomeBean>>() {
         });
@@ -82,7 +81,7 @@ public class SomeBeanRestTest{
 
         //Remove all created test some beans
         for (SomeBean someBean : someBeans){
-            webResource.path(SERVICE_PATH).queryParam("id", someBean.getId()).delete();
+            webResource.queryParam("id", someBean.getId()).delete();
         }
     }
 
