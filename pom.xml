@@ -33,7 +33,7 @@
         <spring.security.version>3.1.0.RELEASE</spring.security.version>
         <spring.data.mongodb.version>1.2.1.RELEASE</spring.data.mongodb.version>
         <httpclient.version>4.2.1</httpclient.version>
-        <hazelcast.version>2.1.2</hazelcast.version>
+        <hazelcast.version>2.5.1</hazelcast.version>
         <jetty.port>9009</jetty.port>
     </properties>
 

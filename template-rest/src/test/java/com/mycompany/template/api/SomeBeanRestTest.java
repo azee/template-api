@@ -2,12 +2,15 @@ package com.mycompany.template.api;
 
 import com.mycompany.template.beans.Property;
 import com.mycompany.template.beans.SomeBean;
+import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.test.framework.JerseyTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import javax.ws.rs.core.MediaType;
 
 import java.util.Date;
@@ -22,12 +25,16 @@ import static junit.framework.Assert.assertNotNull;
  * Date: 7/12/13
  * Time: 2:20 PM
  */
-public class SomeBeanRestTest extends SpringJerseyTest{
-    public static String SERVICE_PATH = "/some-bean";
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath*:web-test-context.xml")
+public class SomeBeanRestTest{
+    public static String SERVICE_PATH = "http://localhost:9009/template-api/some-bean";
     private static final String GET_ALL_PATH = "/all";
 
     private void createSomeBeansCollection(){
-        WebResource webResource = resource();
+        Client client = Client.create();
+        WebResource webResource = client.resource(SERVICE_PATH);
         webResource.path(SERVICE_PATH)
                 .accept(MediaType.APPLICATION_XML)
                 .put(buildSomeBean());
@@ -64,7 +71,8 @@ public class SomeBeanRestTest extends SpringJerseyTest{
     @Test
     public void testGetSomeBeans() throws Exception {
         createSomeBeansCollection();
-        WebResource webResource = resource();
+        Client client = Client.create();
+        WebResource webResource = client.resource(SERVICE_PATH + GET_ALL_PATH);
         ClientResponse response = webResource.path(SERVICE_PATH + GET_ALL_PATH)
                 .accept(MediaType.APPLICATION_XML)
                 .get(ClientResponse.class);
