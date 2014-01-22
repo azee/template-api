@@ -349,20 +349,6 @@
                     </filesets>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <includes>
-                        <include>${runSuite}</include>
-                    </includes>
-                    <excludes>
-                        <exclude>**/**Test.java</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-
         </plugins>
     </build>
 
