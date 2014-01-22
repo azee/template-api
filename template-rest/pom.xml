@@ -13,12 +13,7 @@
     <packaging>jar</packaging>
     <description>REST-full endpoints of Template services</description>
 
-    <properties>
-        <runSuite>**/RestSuite.java</runSuite>
-    </properties>
-
     <dependencies>
-
         <dependency>
             <groupId>com.mycompany.template</groupId>
             <artifactId>template-service</artifactId>
