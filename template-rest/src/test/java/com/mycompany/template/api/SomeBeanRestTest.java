@@ -73,8 +73,7 @@ public class SomeBeanRestTest{
         createSomeBeansCollection();
         Client client = Client.create();
         WebResource webResource = client.resource(SERVICE_PATH + GET_ALL_PATH);
-        ClientResponse response = webResource.path(SERVICE_PATH + GET_ALL_PATH)
-                .accept(MediaType.APPLICATION_XML)
+        ClientResponse response = webResource.accept(MediaType.APPLICATION_XML)
                 .get(ClientResponse.class);
         List<SomeBean> someBeans = response.getEntity(new GenericType<List<SomeBean>>() {
         });
