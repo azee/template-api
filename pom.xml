@@ -11,9 +11,9 @@
 
     <modules>
         <module>template-beans</module>
-        <module>template-rest</module>
-        <module>template-service</module>
         <module>template-dal</module>
+        <module>template-service</module>
+        <module>template-rest</module>
         <module>template-client</module>
         <module>template-integration</module>
     </modules>
@@ -48,25 +48,13 @@
 
             <dependency>
                 <groupId>com.mycompany.template</groupId>
-                <artifactId>template-integration</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.mycompany.template</groupId>
-                <artifactId>template-rest</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.mycompany.template</groupId>
                 <artifactId>template-beans</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.mycompany.template</groupId>
-                <artifactId>template-client</artifactId>
+                <artifactId>template-dal</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -78,9 +66,22 @@
 
             <dependency>
                 <groupId>com.mycompany.template</groupId>
-                <artifactId>template-dal</artifactId>
+                <artifactId>template-rest</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.mycompany.template</groupId>
+                <artifactId>template-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.mycompany.template</groupId>
+                <artifactId>template-integration</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
 
             <!-- Spring framework -->
             <dependency>
