@@ -31,7 +31,6 @@
 
     <context:component-scan base-package="com.mycompany.template"/>
 
-
     <!-- Mongo -->
     <mongo:repositories base-package="com.mycompany.template.repositories" repository-impl-postfix="CustomImpl"/>
 
@@ -51,7 +50,6 @@
 
 
     <!-- Hazelcast -->
-
     <hz:hazelcast id="instance">
         <hz:config>
             <hz:group name="${hazelcast.group.name}" password="${hazelcast.group.password}"/>
