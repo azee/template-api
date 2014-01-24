@@ -25,10 +25,6 @@
         <property name="ignoreResourceNotFound" value="true"/>
     </bean>
 
-    <bean class="com.mycompany.template.beans.ConfigUtils">
-        <property name="authEnabled" value="${auth.enabled}" />
-    </bean>
-
     <util:properties id="domain" location="classpath:domain.properties"/>
 
     <mongo:mongo id="mongo" replica-set="${mongo.replicaSet}" >

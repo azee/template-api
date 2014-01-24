@@ -21,10 +21,6 @@
 
 
     <!-- Properties -->
-    <bean class="com.mycompany.template.beans.ConfigUtils">
-        <property name="authEnabled" value="${auth.enabled}" />
-    </bean>
-
     <bean id="configurationProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations" value="classpath*:internal.properties"/>
     </bean>
