@@ -5,6 +5,7 @@ import com.mycompany.template.services.UserService;
 import com.mycompany.template.utils.UserDataUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 
 import javax.servlet.http.Cookie;
@@ -26,10 +27,16 @@ public class AuthFilter extends AbstractPreAuthenticatedProcessingFilter {
     @Autowired
     UserDataUtils userDataUtils;
 
+    @Value("${auth.enabled}")
+    private boolean AUTH_ENABLED;
+
     @Override
     protected Object getPreAuthenticatedPrincipal(HttpServletRequest request) {
-        User user;
+        if (!AUTH_ENABLED){
+            return GUEST_VAL;
+        }
 
+        User user;
         Cookie sidCookie = userDataUtils.getSidFromRequest(request);
         if (sidCookie != null){
             log.info("Found sid cookie, trying to authenticate");
