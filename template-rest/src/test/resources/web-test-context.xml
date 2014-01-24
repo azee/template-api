@@ -46,7 +46,6 @@
         <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
     </bean>
 
-
     <!-- Hazelcast -->
     <hz:hazelcast id="instance">
         <hz:config>

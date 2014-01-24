@@ -42,12 +42,6 @@
         <dependencies>
             <dependency>
                 <groupId>com.mycompany.template</groupId>
-                <artifactId>template-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.mycompany.template</groupId>
                 <artifactId>template-beans</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -79,6 +73,12 @@
             <dependency>
                 <groupId>com.mycompany.template</groupId>
                 <artifactId>template-integration</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.mycompany.template</groupId>
+                <artifactId>template-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

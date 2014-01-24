@@ -45,13 +45,6 @@
                 <artifactId>maven-jetty-plugin</artifactId>
                 <version>6.1.16</version>
                 <configuration>
-                    <systemProperties>
-                        <systemProperty>
-                            <name>logback.configurationFile</name>
-                            <value>./src/test/resources/logback.xml</value>
-                        </systemProperty>
-                    </systemProperties>
-
                     <stopPort>9966</stopPort>
                     <stopKey>foo</stopKey>
                 </configuration>

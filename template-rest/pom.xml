@@ -286,9 +286,9 @@
                     <!-- Configure the webapp -->
                     <contextPath>/</contextPath>
                     <useTestClasspath>true</useTestClasspath>
-                    <webXml>${project.parent.basedir}/template-rest/src/main/resources/META-INF/webapp/WEB-INF/web.xml</webXml>
-                    <webApp>${project.parent.basedir}/template-rest/src/main/resources/META-INF/webapp/WEB-INF</webApp>
-                    <webAppSourceDirectory>${project.parent.basedir}/template-rest/src/main/resources/META-INF/webapp/WEB-INF</webAppSourceDirectory>
+                    <webXml>${project.parent.basedir}/template-rest/src/test/resources/WEB-INF/web.xml</webXml>
+                    <webApp>${project.parent.basedir}/template-rest/src/test/resources/WEB-INF</webApp>
+                    <webAppSourceDirectory>${project.parent.basedir}/template-rest/src/test/resources/WEB-INF</webAppSourceDirectory>
                     <classesDirectory>${project.parent.basedir}/template-rest/target/classes</classesDirectory>
                     <!-- configure the container                 -->
                     <connectors>
