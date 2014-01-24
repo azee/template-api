@@ -30,10 +30,12 @@
     <!-- Mongo -->
     <mongo:repositories base-package="com.mycompany.template.repositories" repository-impl-postfix="CustomImpl"/>
 
-    <bean name="fongo" class="com.foursquare.fongo.Fongo">
+    <bean name="fongo" class="com.github.fakemongo.Fongo">
         <constructor-arg value="InMemoryMongo" />
     </bean>
+
     <bean id="mongo" factory-bean="fongo" factory-method="getMongo" />
+
     <mongo:db-factory id="mongoDbFactory" mongo-ref="mongo" dbname="database" />
 
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
