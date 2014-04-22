@@ -1,8 +1,11 @@
 package com.mycompany.template.api;
 
+import com.sun.jersey.server.wadl.WadlApplicationContext;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -14,7 +17,12 @@ import java.net.URL;
 /**
  * Created by azee on 4/22/14.
  */
+@Path("/doc")
 public class DocRestService {
+
+    @Context
+    WadlApplicationContext wadlContext;
+
     /**
      * Get API documentation
      */
@@ -29,7 +37,7 @@ public class DocRestService {
             InputStream xslIs = getClass().getResourceAsStream(
                     "/wadl/wadl.xsl");
 
-            InputStream result = new URL("localhost:9001/template-api/application.wadl").openStream();
+            InputStream result = new URL("http://localhost:9001/template-api/application.wadl").openStream();
 
             TransformerFactory tFactory = TransformerFactory.newInstance();
             Transformer transformer = tFactory.newTransformer(
