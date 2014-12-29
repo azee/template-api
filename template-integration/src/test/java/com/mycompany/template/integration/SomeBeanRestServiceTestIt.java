@@ -41,7 +41,7 @@ public class SomeBeanRestServiceTestIt {
 
         SomeBean someBeanRestore = someBeanApi.id(someBean.getId()).getAsSomeBeanXml();
 
-        assertNotNull(someBean);
+        assertNotNull(someBeanRestore);
         assertThat("Bean title is incorrect", someBean.getTitle(), is(someBean.getTitle()));
     }
 }
