@@ -17,6 +17,7 @@
             <xs:element name="cookieExpire" type="xs:long"/>
             <xs:element name="sid" type="xs:string"/>
             <xs:element name="email" type="xs:string"/>
+            <xs:element name="verificationHash" type="xs:string"/>
             <xs:element name="role" type="Role" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>

@@ -9,19 +9,9 @@
         </layout>
     </appender>
 
-    <appender name="default.file" class="org.apache.log4j.FileAppender">
-        <param name="file" value="/var/log/template/api.log" />
-        <param name="append" value="false" />
-        <param name="threshold" value="debug" />
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="[%p] %d %m%n"/>
-        </layout>
-    </appender>
-
     <root>
         <priority value ="info" />
         <appender-ref ref="console" />
-        <appender-ref ref="default.file" />
     </root>
 
 </log4j:configuration>

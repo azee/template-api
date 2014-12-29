@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration(locations = "classpath*:integration-beans.xml")
 public class SomeBeanRestServiceTestIt {
 
-    private static final String ENDPOINT = "http://localhost:9080/template-api";
+    private static final String ENDPOINT = "http://localhost:9009/template-api";
 
     @Test
     public void testCreateSomeBean () throws Exception {

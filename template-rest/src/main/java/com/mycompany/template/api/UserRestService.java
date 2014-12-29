@@ -121,13 +121,13 @@ public class UserRestService {
      * @throws Exception
      */
     @GET
-    @Path("/{id}/verify")
+    @Path("/{id}/{hash}/verify")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response verify(@PathParam("id") final String id) throws Exception {
+    public Response verify(@PathParam("id") final String id, @PathParam("hash") String hash) throws Exception {
         User user;
         try {
-            user = userService.verifyUser(id);
+            user = userService.verifyUser(id, hash);
         } catch (AuthException e){
             return Response.serverError().status(401).build();
         }

@@ -4,6 +4,7 @@ import com.mycompany.template.beans.Role;
 import com.mycompany.template.beans.User;
 import com.mycompany.template.exceptions.AuthException;
 import com.mycompany.template.repositories.UserRepository;
+import com.mycompany.template.utils.EmailUtils;
 import com.mycompany.template.utils.StringUtils;
 import com.mycompany.template.utils.UserDataUtils;
 import org.bson.types.ObjectId;
@@ -37,6 +38,15 @@ public class UserService {
     @Value("#{internal['cookie.timeout']}")
     private long COOKIE_TIMEOUT;
 
+    @Autowired
+    private EmailUtils emailUtils;
+
+    @Value("${base.host}")
+    String HOST;
+
+    @Value("${base.api.path}")
+    String API_PATH;
+
     /**
      * Creates a user with UNVERIFIED permissions
      * @param login
@@ -53,11 +63,18 @@ public class UserService {
         user.setId(ObjectId.get().toString());
         user.getRoles().clear();
         user.getRoles().add(Role.ROLE_UNVERIFIED);
+        user.setVerificationHash(UUID.randomUUID().toString());
 
-        //ToDo: send auth email here
+        sendVerificationEmail(user);
 
         usersRepository.save(user);
         return user;
+    }
+
+    private void sendVerificationEmail(User user) {
+        String body = "To verify your e-mail please follow the link: \n" +
+                HOST + API_PATH + "/user/" + user.getId() + "/" + user.getVerificationHash();
+        emailUtils.sendEmail(Arrays.asList(user.getEmail()), "Email verification", body);
     }
 
     /**
@@ -65,10 +82,14 @@ public class UserService {
      * @param id
      * @return
      */
-    public User verifyUser(String id) throws AuthException {
+    public User verifyUser(String id, String hash) throws AuthException {
         User user = usersRepository.findOne(id);
         if (user == null){
             throw new AuthException("Can't find a user.");
+        }
+
+        if (!user.getVerificationHash().equals(hash)){
+            throw new AuthException("Authorisation verification hash is wrong");
         }
 
         if (hasRole(user, Role.ROLE_UNVERIFIED)){
