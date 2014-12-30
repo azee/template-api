@@ -113,4 +113,4 @@ Aspects are used to log methods execution time. Annotation "Laggable" can be app
 
 Jenkins Build
 ======
-http://azee.people.yandex.net/job/template-api/
+http://azee.people.yandex.net/jenkins/job/template-api/
