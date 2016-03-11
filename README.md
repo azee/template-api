@@ -1,6 +1,8 @@
 What is all about
 =================
 
+[![Join the chat at https://gitter.im/azee/template-api](https://badges.gitter.im/azee/template-api.svg)](https://gitter.im/azee/template-api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 How to build modern, stateless and scalable web service? This question is a stumbling-stone in todays life. 
 As I used to create high loaded services I created a template that allows to set up a web service fast and easily. Now I'd like to share it with you.
 
